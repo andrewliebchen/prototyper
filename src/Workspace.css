@@ -1,0 +1,8 @@
+.Workspace {
+  width: var(--width-main);
+}
+
+.WorkspaceSection {
+  width: var(--width-main);
+  height: 50vh;
+}
