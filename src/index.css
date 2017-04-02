@@ -2,6 +2,7 @@
   --color-background: #f7f7f7;
   --color-text: #333;
   --color-border: #ccc;
+  --color-accent: blue;
 
   --width-inspector: 25vw;
   --width-main: calc(100vw - var(--width-sidebar));
@@ -24,6 +25,11 @@ h2,
 h3,
 h4 {
   margin-bottom: 1em;
+}
+
+a {
+  color: var(--color-accent);
+  cursor: pointer;
 }
 
 .Section {

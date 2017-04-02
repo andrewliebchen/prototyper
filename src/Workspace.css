@@ -5,4 +5,5 @@
 .WorkspaceSection {
   width: var(--width-main);
   height: 50vh;
+  position: relative;
 }

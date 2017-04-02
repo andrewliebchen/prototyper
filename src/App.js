@@ -11,7 +11,6 @@ import './App.css';
 class App extends Component {
   constructor(props) {
     super(props);
-
     this.state ={
       prototype: {
         modal: false
@@ -19,9 +18,11 @@ class App extends Component {
       components: [
         {
           name: 'button',
-          code: () => {
+          code: (prototype) => {
             return (
-              <button onClick={this.handleEvent.bind(null, 'Show modal')}>
+              <button
+                onClick={this.handleEvent.bind(null, 'Show modal')}
+                disabled={prototype.modal}>
                 Click me
               </button>
             );
@@ -34,9 +35,12 @@ class App extends Component {
                 style={{
                   padding:'1em',
                   border: '1px solid',
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
                   display: prototype.modal ? 'inline-block' : 'none'
                 }}>
-                Modal
+                <a onClick={this.handleEvent.bind(null, 'Hide modal')}>Modal</a>
               </div>
             );
           }
@@ -45,8 +49,18 @@ class App extends Component {
       actions: [
         {
           name: 'Show modal',
+          target: 'modal',
+          object: true,
           exec: (self) => {
             let temp = update(self.state.prototype, {modal: {$set: true}});
+            self.setState({prototype: temp});
+          }
+        }, {
+          name: 'Hide modal',
+          target: 'modal',
+          object: false,
+          exec: (self) => {
+            let temp = update(self.state.prototype, {modal: {$set: false}});
             self.setState({prototype: temp});
           }
         }
@@ -63,7 +77,7 @@ class App extends Component {
     return (
       <div className="App">
         <Workspace {...this.state}/>
-        <Inspector {...this.state}/>
+        <Inspector handleActionPlay={this.handleEvent} {...this.state}/>
       </div>
     );
   }
