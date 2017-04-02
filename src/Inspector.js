@@ -16,11 +16,11 @@ class Section extends Component {
 
 class Inspector extends Component {
   render() {
-    const { actions, components, protoState } = this.props;
+    const { actions, components, prototype } = this.props;
     return (
       <div className="Inspector">
         <Section title="State">
-          {_.map(protoState, (value, key) => {
+          {_.map(prototype, (value, key) => {
             return <div key={key}>{key}: {_.toString(value)}</div>
           })}
         </Section>

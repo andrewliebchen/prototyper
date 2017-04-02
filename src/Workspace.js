@@ -6,7 +6,7 @@ class DemoComponent extends Component {
   render() {
     return (
       <span className="ComponentWrapper">
-        {this.props.component.code}
+        {this.props.component.code(this.props.prototype)}
       </span>
     );
   }
@@ -14,7 +14,7 @@ class DemoComponent extends Component {
 
 class Workspace extends Component {
   render() {
-    const { components } = this.props;
+    const { components, prototype } = this.props;
     return (
       <div className="Workspace">
         <section className="Section WorkspaceSection">
@@ -25,7 +25,8 @@ class Workspace extends Component {
             return (
               <DemoComponent
                 key={i}
-                component={component}/>
+                component={component}
+                prototype={prototype}/>
             );
           })}
         </section>

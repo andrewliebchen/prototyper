@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
+import update from 'immutability-helper';
 
 import Workspace from './Workspace';
 import Inspector from './Inspector';
@@ -12,52 +13,57 @@ class App extends Component {
     super(props);
 
     this.state ={
+      prototype: {
+        modal: false
+      },
       components: [
         {
           name: 'button',
-          code:
-            <button onClick={this.handleEvent.bind(null, 'Show modal')}>
-              Click me
-            </button>
+          code: () => {
+            return (
+              <button onClick={this.handleEvent.bind(null, 'Show modal')}>
+                Click me
+              </button>
+            );
+          }
         }, {
           name: 'modal',
-          code:
-            <div
-              style={{
-                padding:'1em',
-                border: '1px solid',
-                display: 'inline-block'
-              }}>
-              Modal
-            </div>
+          code: (prototype) => {
+            return (
+              <div
+                style={{
+                  padding:'1em',
+                  border: '1px solid',
+                  display: prototype.modal ? 'inline-block' : 'none'
+                }}>
+                Modal
+              </div>
+            );
+          }
         }
       ],
       actions: [
         {
           name: 'Show modal',
-          exec: () => {console.log('hi');}
+          exec: (self) => {
+            let temp = update(self.state.prototype, {modal: {$set: true}});
+            self.setState({prototype: temp});
+          }
         }
-      ],
-      prototype: {
-        modal: false
-      }
+      ]
     };
   }
 
   handleEvent = (actionName, event) => {
     const action = _.find(this.state.actions, { name: actionName });
-    action.exec();
+    action.exec(this);
   }
 
   render() {
     return (
       <div className="App">
-        <Workspace
-          protoState={this.state.protoState}
-          {...this.state}/>
-        <Inspector
-          protoState={this.state.protoState}
-          {...this.state}/>
+        <Workspace {...this.state}/>
+        <Inspector {...this.state}/>
       </div>
     );
   }
