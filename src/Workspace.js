@@ -2,6 +2,16 @@ import React, { Component } from 'react';
 
 import './Workspace.css';
 
+class DemoComponent extends Component {
+  render() {
+    return (
+      <span className="ComponentWrapper">
+        {this.props.component.code}
+      </span>
+    );
+  }
+}
+
 class Workspace extends Component {
   render() {
     const { components } = this.props;
@@ -13,9 +23,9 @@ class Workspace extends Component {
         <section className="Section WorkspaceSection">
           {components.map((component, i) => {
             return (
-              <span className="ComponentWrapper" key={i}>
-                {component.code}
-              </span>
+              <DemoComponent
+                key={i}
+                component={component}/>
             );
           })}
         </section>
