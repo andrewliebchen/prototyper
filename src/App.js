@@ -18,10 +18,11 @@ class App extends Component {
       components: [
         {
           name: 'button',
-          code: (prototype) => {
+          event: 'onClick',
+          action: 'Show modal',
+          render: (prototype) => {
             return (
               <button
-                onClick={this.handleEvent.bind(null, 'Show modal')}
                 disabled={prototype.modal}>
                 Click me
               </button>
@@ -29,7 +30,9 @@ class App extends Component {
           }
         }, {
           name: 'modal',
-          code: (prototype) => {
+          event: 'onClick',
+          action: 'Hide modal',
+          render: (prototype) => {
             return (
               <div
                 style={{
@@ -40,7 +43,7 @@ class App extends Component {
                   left: '50%',
                   display: prototype.modal ? 'inline-block' : 'none'
                 }}>
-                <a onClick={this.handleEvent.bind(null, 'Hide modal')}>Modal</a>
+                Modal
               </div>
             );
           }
@@ -73,11 +76,26 @@ class App extends Component {
     action.exec(this);
   }
 
+  handleNewComponent(values) {
+    let temp = update(this.state.components, {$push: [{
+      name: values.name,
+      event: values.event,
+      action: values.action,
+      render: (prototype) => {
+        return <span dangerouslySetInnerHTML={{__html: values.render}}/>;
+      }
+    }]});
+    this.setState({components: temp});
+  }
+
   render() {
     return (
       <div className="App">
-        <Workspace {...this.state}/>
-        <Inspector handleActionPlay={this.handleEvent} {...this.state}/>
+        <Workspace handleEvent={this.handleEvent} {...this.state}/>
+        <Inspector
+          handleActionPlay={this.handleEvent}
+          handleNewComponentSubmit={this.handleNewComponent.bind(this)}
+          {...this.state}/>
       </div>
     );
   }

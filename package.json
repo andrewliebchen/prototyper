@@ -9,6 +9,7 @@
   "devDependencies": {
     "immutability-helper": "^2.1.2",
     "lodash": "^4.17.4",
+    "react-form": "^1.2.6",
     "react-scripts": "0.9.5"
   },
   "scripts": {

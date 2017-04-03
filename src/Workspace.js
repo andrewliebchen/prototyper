@@ -1,20 +1,12 @@
 import React, { Component } from 'react';
 
-import './Workspace.css';
+import DemoComponent from './DemoComponent';
 
-class DemoComponent extends Component {
-  render() {
-    return (
-      <span className="ComponentWrapper">
-        {this.props.component.code(this.props.prototype)}
-      </span>
-    );
-  }
-}
+import './Workspace.css';
 
 class Workspace extends Component {
   render() {
-    const { components, prototype } = this.props;
+    const { components, prototype, handleEvent } = this.props;
     return (
       <div className="Workspace">
         <section className="Section WorkspaceSection">
@@ -26,7 +18,8 @@ class Workspace extends Component {
               <DemoComponent
                 key={i}
                 component={component}
-                prototype={prototype}/>
+                prototype={prototype}
+                handleEvent={handleEvent}/>
             );
           })}
         </section>

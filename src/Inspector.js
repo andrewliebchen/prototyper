@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 
+import NewComponent from './NewComponent';
+
 import './Inspector.css';
 
 class Section extends Component {
@@ -15,8 +17,26 @@ class Section extends Component {
 }
 
 class Inspector extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      newComponent: false
+    };
+    this.handleNewComponent = this.handleNewComponent.bind(this);
+  }
+
+  handleNewComponent() {
+    this.setState({newComponent: !this.state.newComponent});
+  }
+
   render() {
-    const { actions, components, prototype, handleActionPlay } = this.props;
+    const {
+      actions,
+      components,
+      prototype,
+      handleActionPlay,
+      handleNewComponentSubmit
+    } = this.props;
     return (
       <div className="Inspector">
         <Section title="State">
@@ -40,7 +60,14 @@ class Inspector extends Component {
           {components.map((component, i) => {
             return <div key={i}>{component.name}</div>;
           })}
+          <a onClick={this.handleNewComponent}>New component</a>
         </Section>
+
+        {this.state.newComponent &&
+          <NewComponent
+            handleSubmit={handleNewComponentSubmit}
+            {...this.props}/>
+        }
       </div>
     );
   }
