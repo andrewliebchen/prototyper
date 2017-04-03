@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import _ from 'lodash';
 import { Form, Text, Select, Textarea } from 'react-form'
 
@@ -58,5 +58,10 @@ class NewComponent extends Component {
     );
   }
 }
+
+NewComponent.propTypes = {
+  actions: PropTypes.array,
+  submitForm: PropTypes.func
+};
 
 export default NewComponent;

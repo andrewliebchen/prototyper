@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import DemoComponent from './DemoComponent';
 
@@ -10,7 +10,7 @@ class Workspace extends Component {
     return (
       <div className="Workspace">
         <section className="Section WorkspaceSection">
-
+          Stuff
         </section>
         <section className="Section WorkspaceSection">
           {components.map((component, i) => {
@@ -27,5 +27,11 @@ class Workspace extends Component {
     );
   }
 }
+
+Workspace.propTypes = {
+  components: PropTypes.array,
+  prototype: PropTypes.object,
+  handleEvent: PropTypes.func
+};
 
 export default Workspace;

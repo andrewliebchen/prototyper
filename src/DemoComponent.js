@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 class DemoComponent extends Component {
   render() {
@@ -12,5 +12,10 @@ class DemoComponent extends Component {
     );
   }
 }
+
+DemoComponent.propTypes = {
+  component: PropTypes.object,
+  handleEvent: PropTypes.func
+};
 
 export default DemoComponent;

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import _ from 'lodash';
 import Modal from 'react-modal';
 
@@ -97,5 +97,14 @@ class Inspector extends Component {
     );
   }
 }
+
+Inspector.propTypes = {
+  actions: PropTypes.array,
+  components: PropTypes.array,
+  prototype: PropTypes.object,
+  handleActionPlay: PropTypes.func,
+  handleNewComponentSubmit: PropTypes.func,
+  handleNewActionSubmit: PropTypes.func
+};
 
 export default Inspector;
