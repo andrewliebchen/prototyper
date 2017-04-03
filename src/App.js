@@ -79,10 +79,15 @@ class App extends Component {
   }
 
   handleNewAction(values) {
+    const valueBool = values.value === 'true' ? true : false
     let temp = update(this.state.actions, {$push: [{
       name: values.name,
       target: values.target,
       value: values.value,
+      exec: (self) => {
+        let temp = update(self.state.prototype, {[values.target]: {$set: valueBool}});
+        self.setState({prototype: temp});
+      }
     }]});
     this.setState({actions: temp});
   }
