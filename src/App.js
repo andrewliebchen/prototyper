@@ -21,6 +21,7 @@ class App extends Component {
           name: 'Button',
           event: 'onClick',
           action: 'Show modal',
+          style: (prototype) => { return false; },
           render: (prototype) => {
             return (
               <button
@@ -34,17 +35,19 @@ class App extends Component {
           name: 'Modal',
           event: 'onClick',
           action: 'Hide modal',
+          style: (prototype) => {
+            return ({
+              padding: '1em',
+              border: '1px solid',
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              display: prototype.modal ? 'inline-block' : 'none'
+            });
+          },
           render: (prototype) => {
             return (
-              <div
-                style={{
-                  padding:'1em',
-                  border: '1px solid',
-                  position: 'absolute',
-                  top: '50%',
-                  left: '50%',
-                  display: prototype.modal ? 'inline-block' : 'none'
-                }}>
+              <div>
                 Modal
               </div>
             );
@@ -98,6 +101,7 @@ class App extends Component {
       slug: _.camelCase(values.name),
       event: values.event,
       action: values.action,
+      style: (prototype) => { return JSON.parse(values.style) }, // TODO: This could be better!
       render: (prototype) => {
         return <span dangerouslySetInnerHTML={{__html: values.render}}/>;
       }

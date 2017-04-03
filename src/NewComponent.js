@@ -49,6 +49,8 @@ class NewComponent extends Component {
                   options={actionsList} />
                 <label>Render</label>
                 <Textarea field="render" />
+                <label>Style</label>
+                <Textarea field="style" />
                 <button type='submit'>Create</button>
               </form>
             );
