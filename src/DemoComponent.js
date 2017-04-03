@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import './DemoComponent.css'
-
 class DemoComponent extends Component {
   render() {
     const { component, handleEvent } = this.props;

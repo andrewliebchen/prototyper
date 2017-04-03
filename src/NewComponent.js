@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import { Form, Text, Select, Textarea } from 'react-form'
 
-import './NewComponent.css';
-
 class NewComponent extends Component {
   constructor(props) {
     super(props);
