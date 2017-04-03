@@ -17,7 +17,8 @@ class App extends Component {
       },
       components: [
         {
-          name: 'button',
+          slug: 'button',
+          name: 'Button',
           event: 'onClick',
           action: 'Show modal',
           render: (prototype) => {
@@ -29,7 +30,8 @@ class App extends Component {
             );
           }
         }, {
-          name: 'modal',
+          slug: 'modal',
+          name: 'Modal',
           event: 'onClick',
           action: 'Hide modal',
           render: (prototype) => {
@@ -53,7 +55,7 @@ class App extends Component {
         {
           name: 'Show modal',
           target: 'modal',
-          object: true,
+          value: true,
           exec: (self) => {
             let temp = update(self.state.prototype, {modal: {$set: true}});
             self.setState({prototype: temp});
@@ -61,7 +63,7 @@ class App extends Component {
         }, {
           name: 'Hide modal',
           target: 'modal',
-          object: false,
+          value: false,
           exec: (self) => {
             let temp = update(self.state.prototype, {modal: {$set: false}});
             self.setState({prototype: temp});
@@ -76,9 +78,19 @@ class App extends Component {
     action.exec(this);
   }
 
+  handleNewAction(values) {
+    let temp = update(this.state.actions, {$push: [{
+      name: values.name,
+      target: values.target,
+      value: values.value,
+    }]});
+    this.setState({actions: temp});
+  }
+
   handleNewComponent(values) {
     let temp = update(this.state.components, {$push: [{
       name: values.name,
+      slug: _.camelCase(values.name),
       event: values.event,
       action: values.action,
       render: (prototype) => {
@@ -95,6 +107,7 @@ class App extends Component {
         <Inspector
           handleActionPlay={this.handleEvent}
           handleNewComponentSubmit={this.handleNewComponent.bind(this)}
+          handleNewActionSubmit={this.handleNewAction.bind(this)}
           {...this.state}/>
       </div>
     );

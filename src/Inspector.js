@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
+import Modal from 'react-modal';
 
+import NewAction from './NewAction';
 import NewComponent from './NewComponent';
+import Section from './Section';
 
 import './Inspector.css';
 
-class Section extends Component {
-  render() {
-    return (
-      <section className="Section InspectorSection">
-        <h3>{this.props.title}</h3>
-        {this.props.children}
-      </section>
-    );
+const modalStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    transform: 'translate3d(-50%, -50%, 0)',
+    width: '400px'
   }
 }
 
@@ -20,13 +23,19 @@ class Inspector extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      newComponent: false
+      newComponentModal: false,
+      newActionModal: false
     };
-    this.handleNewComponent = this.handleNewComponent.bind(this);
+    this.toggleNewComponentModal = this.toggleNewComponentModal.bind(this);
+    this.toggleNewActionModal = this.toggleNewActionModal.bind(this);
   }
 
-  handleNewComponent() {
-    this.setState({newComponent: !this.state.newComponent});
+  toggleNewComponentModal() {
+    this.setState({newComponentModal: !this.state.newComponentModal});
+  }
+
+  toggleNewActionModal() {
+    this.setState({newActionModal: !this.state.newActionModal});
   }
 
   render() {
@@ -35,7 +44,8 @@ class Inspector extends Component {
       components,
       prototype,
       handleActionPlay,
-      handleNewComponentSubmit
+      handleNewComponentSubmit,
+      handleNewActionSubmit
     } = this.props;
     return (
       <div className="Inspector">
@@ -50,24 +60,39 @@ class Inspector extends Component {
               <ul className="Action" key={i}>
                 <li>Name: {action.name}</li>
                 <li>Target: {action.target}</li>
-                <li>Object: {_.toString(action.object)}</li>
+                <li>Value: {_.toString(action.value)}</li>
                 <li><a onClick={handleActionPlay.bind(null, action.name)}>Play</a></li>
               </ul>
             );
           })}
+          <a onClick={this.toggleNewActionModal}>New Action</a>
         </Section>
         <Section title="Components">
           {components.map((component, i) => {
             return <div key={i}>{component.name}</div>;
           })}
-          <a onClick={this.handleNewComponent}>New component</a>
+          <a onClick={this.toggleNewComponentModal}>New component</a>
         </Section>
 
-        {this.state.newComponent &&
+        <Modal
+          isOpen={this.state.newComponentModal}
+          onRequestClose={this.toggleNewComponentModal}
+          style={modalStyles}
+          contentLabel="New component">
           <NewComponent
             handleSubmit={handleNewComponentSubmit}
             {...this.props}/>
-        }
+        </Modal>
+
+        <Modal
+          isOpen={this.state.newActionModal}
+          onRequestClose={this.toggleNewActionModal}
+          style={modalStyles}
+          contentLabel="New Action">
+          <NewAction
+            handleSubmit={handleNewActionSubmit}
+            {...this.props}/>
+        </Modal>
       </div>
     );
   }

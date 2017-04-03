@@ -23,6 +23,7 @@ class NewComponent extends Component {
           value: action.name
       });
     });
+
     return (
       <div className="NewComponent">
         <h3>New component</h3>
@@ -40,12 +41,10 @@ class NewComponent extends Component {
                 <label>Event</label>
                 <Select
                   field="event"
-                  options={[
-                    {
-                      label: 'Click',
-                      value: 'onClick'
-                    }
-                  ]} />
+                  options={[{
+                    label: 'Click',
+                    value: 'onClick'
+                  }]} />
                 <label>Action</label>
                 <Select
                   field="action"
