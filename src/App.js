@@ -38,14 +38,14 @@ class App extends Component {
           event: 'onClick',
           action: 'Hide modal',
           style: (prototype) => {
-            return ({
-              padding: '1em',
-              border: '1px solid',
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              display: prototype.modal ? 'inline-block' : 'none'
-            });
+            return (`
+              "padding": "1em",
+              "border": "1px solid",
+              "position": "absolute",
+              "top": "50%",
+              "left": "50%",
+              display: "${prototype.modal ? 'inline-block' : 'none'}"
+            `);
           },
           render: (prototype) => {
             return (
@@ -108,16 +108,15 @@ class App extends Component {
     this.setState({actions: temp});
   }
 
-  handleNewComponent(values) {
+  handleNewComponent(values, render, style) {
+    console.log(style);
     let temp = update(this.state.components, {$push: [{
       name: values.name,
       slug: _.camelCase(values.name),
       event: values.event,
       action: values.action,
-      style: (prototype) => { return JSON.parse(values.style) }, // TODO: This could be better!
-      render: (prototype) => {
-        return <span dangerouslySetInnerHTML={{__html: values.render}}/>;
-      }
+      style: style,
+      render: render
     }]});
     this.setState({components: temp});
   }

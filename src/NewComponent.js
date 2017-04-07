@@ -1,16 +1,27 @@
 import React, { Component, PropTypes } from 'react';
 import _ from 'lodash';
-import { Form, Text, Select, Textarea } from 'react-form'
+import { Form, Text, Select } from 'react-form';
+import CodeMirror from 'react-codemirror';
+
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/mode/javascript/javascript';
+import 'codemirror/theme/material.css';
 
 class NewComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: null,
-      event: 'onClick',
-      action: null,
-      render: null
+      render: null,
+      style: null
     }
+  }
+
+  updateRenderCode(newCode) {
+    this.setState({render: newCode});
+  }
+
+  updateStyleCode(newCode) {
+    this.setState({style: newCode})
   }
 
   render() {
@@ -22,11 +33,21 @@ class NewComponent extends Component {
       });
     });
 
+    const CMOptions = {
+      mode: 'javascript',
+      lineNumbers: true,
+      theme: 'material'
+    };
+
     return (
       <div className="NewComponent">
         <h3>New component</h3>
         <Form
-          onSubmit={(values) => {this.props.handleSubmit(values)}}
+          onSubmit={(values) => {this.props.handleSubmit(
+            values,
+            this.state.render,
+            this.state.style
+          )}}
           defaultValues={{
             event: 'onClick',
             action: 'Show modal'
@@ -48,9 +69,13 @@ class NewComponent extends Component {
                   field="action"
                   options={actionsList} />
                 <label>Render</label>
-                <Textarea field="render" />
+                <CodeMirror
+                  onChange={this.updateRenderCode.bind(this)}
+                  options={CMOptions} />
                 <label>Style</label>
-                <Textarea field="style" />
+                <CodeMirror
+                  onChange={this.updateStyleCode.bind(this)}
+                  options={CMOptions} />
                 <button type='submit'>Create</button>
               </form>
             );
