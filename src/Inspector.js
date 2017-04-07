@@ -43,7 +43,7 @@ class Inspector extends Component {
       actions,
       components,
       prototype,
-      handleActionPlay,
+      handlePlayAction,
       handleNewComponentSubmit,
       handleNewActionSubmit
     } = this.props;
@@ -61,7 +61,7 @@ class Inspector extends Component {
                 <li>Name: {action.name}</li>
                 <li>Target: {action.target}</li>
                 <li>Value: {_.toString(action.value)}</li>
-                <li><a onClick={handleActionPlay.bind(null, action.name)}>Play</a></li>
+                <li><a onClick={handlePlayAction.bind(null, action.name)}>Play</a></li>
               </ul>
             );
           })}
@@ -102,7 +102,7 @@ Inspector.propTypes = {
   actions: PropTypes.array,
   components: PropTypes.array,
   prototype: PropTypes.object,
-  handleActionPlay: PropTypes.func,
+  handlePlayAction: PropTypes.func,
   handleNewComponentSubmit: PropTypes.func,
   handleNewActionSubmit: PropTypes.func
 };

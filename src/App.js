@@ -11,6 +11,8 @@ import './App.css';
 class App extends Component {
   constructor(props) {
     super(props);
+
+    // Stub in most of this stuff, needs to go...
     this.state ={
       prototype: {
         modal: false
@@ -72,6 +74,17 @@ class App extends Component {
             self.setState({prototype: temp});
           }
         }
+      ],
+      flows: [
+        {
+          event: 'click',
+          component: 'button',
+          action: 'Show modal'
+        }, {
+          event: 'click',
+          component: 'modal',
+          action: 'Hide modal'
+        }
       ]
     };
   }
@@ -112,9 +125,12 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Workspace handleEvent={this.handleEvent} {...this.state}/>
+        <Workspace
+          handleEvent={this.handleEvent}
+          handleRunFlow={this.handleEvent}
+          {...this.state}/>
         <Inspector
-          handleActionPlay={this.handleEvent}
+          handlePlayAction={this.handleEvent}
           handleNewComponentSubmit={this.handleNewComponent.bind(this)}
           handleNewActionSubmit={this.handleNewAction.bind(this)}
           {...this.state}/>
