@@ -23,7 +23,7 @@ class App extends Component {
           name: 'Button',
           event: 'onClick',
           action: 'Show modal',
-          style: (prototype) => { return false; },
+          style: (prototype) => { return {}; },
           render: (prototype) => {
             return (
               <button
@@ -38,14 +38,14 @@ class App extends Component {
           event: 'onClick',
           action: 'Hide modal',
           style: (prototype) => {
-            return (`
-              "padding": "1em",
-              "border": "1px solid",
-              "position": "absolute",
-              "top": "50%",
-              "left": "50%",
-              display: "${prototype.modal ? 'inline-block' : 'none'}"
-            `);
+            return ({
+              padding: '1em',
+              border: '1px solid',
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              display: prototype.modal ? 'inline-block' : 'none'
+            });
           },
           render: (prototype) => {
             return (
@@ -115,7 +115,7 @@ class App extends Component {
       slug: _.camelCase(values.name),
       event: values.event,
       action: values.action,
-      style: style,
+       style: (prototype) => { return JSON.parse(`{ ${values.style} }`) },
       render: render
     }]});
     this.setState({components: temp});

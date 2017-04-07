@@ -1,34 +1,34 @@
 import React, { Component, PropTypes } from 'react';
-// import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom';
 import _ from 'lodash';
 
 class DemoComponent extends Component {
   render() {
-    const { component, handleEvent, prototype } = this.props;
+    const { component, prototype, handleEvent } = this.props;
     return (
       <span
-        className="DemoComponent"
-        onClick={component.event === 'onClick' && handleEvent.bind(this, component.action)}
         ref="parent"
-        dangerouslySetInnerHTML={{__html: component.render(prototype)}}>
+        onClick={component.event === 'onClick' && handleEvent.bind(this, component.action)}>
+        {component.render(prototype)}
       </span>
     );
   }
 
-  // _renderStyle() {
-  //   const component = ReactDOM.findDOMNode(this.refs.parent).firstChild;
-  //   _.map(this.props.component.style(this.props.prototype), (value, key) => {
-  //     component.style[key] = value;
-  //   });
-  // }
-  //
-  // componentDidMount() {
-  //   this._renderStyle()
-  // }
-  //
-  // componentDidUpdate() {
-  //   this._renderStyle()
-  // }
+  _renderStyle() {
+    const component = ReactDOM.findDOMNode(this.refs.parent).firstChild;
+    _.map(this.props.component.style(this.props.prototype), (value, key) => {
+      console.log(component.style);
+      component.style[key] = value;
+    });
+  }
+
+  componentDidMount() {
+    this._renderStyle()
+  }
+
+  componentDidUpdate() {
+    this._renderStyle()
+  }
 }
 
 DemoComponent.propTypes = {
