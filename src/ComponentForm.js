@@ -8,8 +8,8 @@ class ComponentForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      render: null,
-      style: null
+      render: this.props.render,
+      style: this.props.style
     }
   }
 
@@ -60,7 +60,9 @@ class ComponentForm extends Component {
                   options={actionsList} />
                 <ComponentEditor
                   updateRender={this.updateRender.bind(this)}
-                  updateStyle={this.updateStyle.bind(this)}/>
+                  updateStyle={this.updateStyle.bind(this)}
+                  render={this.state.render}
+                  style={this.state.style}/>
                 <button type="submit">Create</button>
               </form>
             );

@@ -97,22 +97,14 @@ class App extends Component {
   }
 
   handleNewComponent(values, render, style) {
-    // Convert the style string into a function
-    let properties = style.split(', ');
-    let styleObj = {};
-    properties.forEach((property) => {
-        let tup = property.split(':');
-        styleObj[tup[0]] = tup[1];
-    });
-    console.log(styleObj);
-
+    console.log(style);
     let temp = update(this.state.components, {$push: [{
       name: values.name,
       slug: _.camelCase(values.name),
       event: values.event,
       action: values.action,
       style: (prototype) => {
-        return (styleObj);
+        return (style);
       },
       render: render
     }]});

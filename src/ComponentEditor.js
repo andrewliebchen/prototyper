@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import CodeMirror from 'react-codemirror';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { JsonEditor } from 'react-json-edit';
 
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/mode/javascript/javascript';
@@ -26,9 +27,9 @@ class ComponentEdit extends Component {
             options={CMOptions} />
         </TabPanel>
         <TabPanel>
-          <CodeMirror
-            onChange={this.props.updateStyle.bind(this)}
-            options={CMOptions} />
+          <JsonEditor
+            value={this.props.style}
+            propagateChanges={this.props.updateStyle.bind(this)}/>
         </TabPanel>
       </Tabs>
     );
@@ -36,8 +37,8 @@ class ComponentEdit extends Component {
 };
 
 ComponentEdit.propTypes = {
-  render: PropTypes.func,
-  style: PropTypes.func,
+  // render: PropTypes.object,
+  // style: PropTypes.object,
   updateRender: PropTypes.func,
   updateStyle: PropTypes.func
 };
