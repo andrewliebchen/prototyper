@@ -25,14 +25,7 @@ class App extends Component {
           event: 'onClick',
           action: 'Show modal',
           style: (prototype) => { return {}; },
-          render: (prototype) => {
-            return (
-              <button
-                disabled={prototype.modal}>
-                Click me
-              </button>
-            );
-          }
+          render: '<button>Click me</button>'
         }, {
           slug: 'modal',
           name: 'Modal',
@@ -48,13 +41,7 @@ class App extends Component {
               display: prototype.modal ? 'inline-block' : 'none'
             });
           },
-          render: (prototype) => {
-            return (
-              <div>
-                Modal
-              </div>
-            );
-          }
+          render: '<div>Modal</div>'
         }
       ],
       actions: [
@@ -115,7 +102,9 @@ class App extends Component {
       slug: _.camelCase(values.name),
       event: values.event,
       action: values.action,
-      style: (prototype) => { return JSON.parse(`{ ${values.style} }`) },
+      style: (prototype) => {
+        return JSON.parse(`{${style}}`)  // TODO: This could be better!
+      },
       render: render
     }]});
     this.setState({components: temp});

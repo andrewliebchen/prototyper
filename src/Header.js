@@ -1,4 +1,7 @@
 import React, { Component, PropTypes } from 'react';
+import { Flex, Box } from 'reflexbox';
+
+import Button from './Button';
 
 import './Header.css';
 
@@ -35,10 +38,10 @@ class Header extends Component {
   }
 
   render() {
-    const { flows, handleRunFlow } = this.props;
+    // const { flows, handleRunFlow } = this.props;
     return (
-      <header className="Header">
-        <ol>
+      <Flex className="Header" justify="space-between" align="center">
+        {/* <ol>
           {flows.map((flow, i) => {
             return (
               <li key={i}>
@@ -49,8 +52,18 @@ class Header extends Component {
               </li>
             );
           })}
-        </ol>
-      </header>
+        </ol> */}
+        <Box>
+          <h1 className="Flow">
+            1. When I click the button, show modal <a>✏️</a>
+          </h1>
+        </Box>
+        <Box>
+          <Button label="New flow"/>
+          <Button label="👈"/>
+          <Button label="👉"/>
+        </Box>
+      </Flex>
     );
   }
 };

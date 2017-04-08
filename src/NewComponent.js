@@ -76,7 +76,7 @@ class NewComponent extends Component {
                 <CodeMirror
                   onChange={this.updateStyleCode.bind(this)}
                   options={CMOptions} />
-                <button type='submit'>Create</button>
+                <button type="submit">Create</button>
               </form>
             );
           }}

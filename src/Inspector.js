@@ -58,12 +58,12 @@ class Inspector extends Component {
           {actions.map((action, i) => {
             return (
               <Flex
-                className="Action"
+                className="Item"
                 justify="space-between"
                 key={i}>
                 <Box>{action.name}</Box>
                 <Box
-                  className="ActionAction"
+                  className="ItemAction"
                   onClick={handlePlayAction.bind(null, action.name)}>
                   🏃
                 </Box>
@@ -75,7 +75,7 @@ class Inspector extends Component {
           title="Components"
           addAction={this.toggleNewComponentModal}>
           {components.map((component, i) => {
-            return <div key={i}>{component.name}</div>;
+            return <div className="Item" key={i}>{component.name}</div>;
           })}
         </Section>
 

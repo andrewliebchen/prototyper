@@ -4,23 +4,23 @@ import _ from 'lodash';
 
 class DemoComponent extends Component {
   render() {
-    const { component, prototype, handleEvent } = this.props;
+    const { component, handleEvent } = this.props;
     return (
       <span
         ref="parent"
-        onClick={component.event === 'onClick' && handleEvent.bind(this, component.action)}>
-        {component.render(prototype)}
-      </span>
+        onClick={component.event === 'onClick' && handleEvent.bind(this, component.action)}
+        dangerouslySetInnerHTML={{__html: component.render}}/>
     );
   }
 
   _renderStyle() {
     const { component, prototype } = this.props;
     const componentParent = ReactDOM.findDOMNode(this.refs.parent).firstChild;
-    _.map(component.style(prototype), (value, key) => {
-      console.log(component.style);
-      componentParent.style[key] = value;
-    });
+    if (component.style) {
+      _.map(component.style(prototype), (value, key) => {
+        componentParent.style[key] = value;
+      });
+    }
   }
 
   componentDidMount() {

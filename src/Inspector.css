@@ -5,22 +5,22 @@
   top: var(--height-header);
   bottom: 0;
   background-color: var(--color-background);
-  border-left: 1px solid var(--color-border);
+  border-left: 2px solid var(--color-border);
   overflow: auto;
 }
 
-.Action {
+.Item {
   height: 2em;
   line-height: 2em;
   background-color: var(--color-item-background);
-  padding: 0 1em;
+  padding: 0 0.5em;
   display: flex;
 }
 
-.Action + .Action {
+.Item + .Item {
   margin-top: 0.5em;
 }
 
-.ActionAction {
+.ItemAction {
   cursor: pointer;
 }
