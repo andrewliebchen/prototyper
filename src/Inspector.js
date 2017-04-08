@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import _ from 'lodash';
 import Modal from 'react-modal';
+import ReactJson from 'react-json-view';
 
 import NewAction from './NewAction';
 import NewComponent from './NewComponent';
@@ -50,9 +51,7 @@ class Inspector extends Component {
     return (
       <div className="Inspector">
         <Section title="State">
-          {_.map(prototype, (value, key) => {
-            return <div key={key}>{key}: {_.toString(value)}</div>
-          })}
+          <ReactJson src={prototype} name="state"/>
         </Section>
         <Section title="Actions">
           {actions.map((action, i) => {
