@@ -16,6 +16,7 @@
     "react-jsoneditor": "^0.2.14",
     "react-modal": "^1.7.3",
     "react-scripts": "0.9.5",
+    "react-tabs": "^0.8.2",
     "reflexbox": "^2.2.3"
   },
   "scripts": {

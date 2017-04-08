@@ -5,7 +5,7 @@ import { Flex, Box } from 'reflexbox';
 import JSONTree from 'react-json-tree';
 
 import NewAction from './NewAction';
-import NewComponent from './NewComponent';
+import ComponentForm from './ComponentForm';
 import Section from './Section';
 
 import './Inspector.css';
@@ -84,7 +84,8 @@ class Inspector extends Component {
           onRequestClose={this.toggleNewComponentModal}
           style={modalStyles}
           contentLabel="New component">
-          <NewComponent
+          <h3>New component</h3>
+          <ComponentForm
             handleSubmit={handleNewComponentSubmit}
             {...this.props}/>
         </Modal>

@@ -1,13 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import _ from 'lodash';
 import { Form, Text, Select } from 'react-form';
-import CodeMirror from 'react-codemirror';
 
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/mode/javascript/javascript';
-import 'codemirror/theme/material.css';
+import ComponentEditor from './ComponentEditor';
 
-class NewComponent extends Component {
+class ComponentForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,11 +13,11 @@ class NewComponent extends Component {
     }
   }
 
-  updateRenderCode(newCode) {
+  updateRender(newCode) {
     this.setState({render: newCode});
   }
 
-  updateStyleCode(newCode) {
+  updateStyle(newCode) {
     this.setState({style: newCode})
   }
 
@@ -33,15 +30,8 @@ class NewComponent extends Component {
       });
     });
 
-    const CMOptions = {
-      mode: 'javascript',
-      lineNumbers: true,
-      theme: 'material'
-    };
-
     return (
-      <div className="NewComponent">
-        <h3>New component</h3>
+      <div className="ComponentForm">
         <Form
           onSubmit={(values) => {this.props.handleSubmit(
             values,
@@ -68,14 +58,9 @@ class NewComponent extends Component {
                 <Select
                   field="action"
                   options={actionsList} />
-                <label>Render</label>
-                <CodeMirror
-                  onChange={this.updateRenderCode.bind(this)}
-                  options={CMOptions} />
-                <label>Style</label>
-                <CodeMirror
-                  onChange={this.updateStyleCode.bind(this)}
-                  options={CMOptions} />
+                <ComponentEditor
+                  updateRender={this.updateRender.bind(this)}
+                  updateStyle={this.updateStyle.bind(this)}/>
                 <button type="submit">Create</button>
               </form>
             );
@@ -86,9 +71,9 @@ class NewComponent extends Component {
   }
 }
 
-NewComponent.propTypes = {
+ComponentForm.propTypes = {
   actions: PropTypes.array,
   submitForm: PropTypes.func
 };
 
-export default NewComponent;
+export default ComponentForm;
