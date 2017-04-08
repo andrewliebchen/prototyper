@@ -110,7 +110,6 @@ class App extends Component {
   }
 
   handleNewComponent(values, render, style) {
-    console.log(style);
     let temp = update(this.state.components, {$push: [{
       name: values.name,
       slug: _.camelCase(values.name),

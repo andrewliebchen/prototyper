@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import _ from 'lodash';
 import Modal from 'react-modal';
-import ReactJson from 'react-json-view';
+import { Flex, Box } from 'reflexbox';
+import JSONTree from 'react-json-tree';
 
 import NewAction from './NewAction';
 import NewComponent from './NewComponent';
@@ -51,26 +52,31 @@ class Inspector extends Component {
     return (
       <div className="Inspector">
         <Section title="State">
-          <ReactJson src={prototype} name="state"/>
+          <JSONTree data={prototype} theme={'flat'}/>
         </Section>
-        <Section title="Actions">
+        <Section title="Actions" addAction={this.toggleNewActionModal}>
           {actions.map((action, i) => {
             return (
-              <ul className="Action" key={i}>
-                <li>Name: {action.name}</li>
-                <li>Target: {action.target}</li>
-                <li>Value: {_.toString(action.value)}</li>
-                <li><a onClick={handlePlayAction.bind(null, action.name)}>Play</a></li>
-              </ul>
+              <Flex
+                className="Action"
+                justify="space-between"
+                key={i}>
+                <Box>{action.name}</Box>
+                <Box
+                  className="ActionAction"
+                  onClick={handlePlayAction.bind(null, action.name)}>
+                  🏃
+                </Box>
+              </Flex>
             );
           })}
-          <a onClick={this.toggleNewActionModal}>New Action</a>
         </Section>
-        <Section title="Components">
+        <Section
+          title="Components"
+          addAction={this.toggleNewComponentModal}>
           {components.map((component, i) => {
             return <div key={i}>{component.name}</div>;
           })}
-          <a onClick={this.toggleNewComponentModal}>New component</a>
         </Section>
 
         <Modal

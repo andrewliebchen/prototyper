@@ -11,9 +11,12 @@
     "lodash": "^4.17.4",
     "react-codemirror": "^0.3.0",
     "react-form": "^1.2.6",
+    "react-json-tree": "^0.10.7",
     "react-json-view": "^1.4.1",
+    "react-jsoneditor": "^0.2.14",
     "react-modal": "^1.7.3",
-    "react-scripts": "0.9.5"
+    "react-scripts": "0.9.5",
+    "reflexbox": "^2.2.3"
   },
   "scripts": {
     "start": "react-scripts start",
