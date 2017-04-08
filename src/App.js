@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import update from 'immutability-helper';
 
+import Header from './Header';
 import Workspace from './Workspace';
 import Inspector from './Inspector';
 
@@ -115,7 +116,7 @@ class App extends Component {
       slug: _.camelCase(values.name),
       event: values.event,
       action: values.action,
-       style: (prototype) => { return JSON.parse(`{ ${values.style} }`) },
+      style: (prototype) => { return JSON.parse(`{ ${values.style} }`) },
       render: render
     }]});
     this.setState({components: temp});
@@ -124,9 +125,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <Header
+          handleRunFlow={this.handleEvent}
+          {...this.state}/>
         <Workspace
           handleEvent={this.handleEvent}
-          handleRunFlow={this.handleEvent}
           {...this.state}/>
         <Inspector
           handlePlayAction={this.handleEvent}
