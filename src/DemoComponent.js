@@ -15,12 +15,13 @@ class DemoComponent extends Component {
 
   _renderStyle() {
     const { component, prototype } = this.props;
-    const componentParent = ReactDOM.findDOMNode(this.refs.parent).firstChild;
+    const componentParent = ReactDOM.findDOMNode(this.refs.parent);
+
     if (component.style) {
       const componentStyles = eval(`(prototype) => { return({${component.style}}); }`);
 
       _.map(componentStyles(prototype), (value, key) => {
-        componentParent.style[key] = value;
+        componentParent.firstChild.style[key] = value;
       });
     }
   }

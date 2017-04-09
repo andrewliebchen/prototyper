@@ -65,6 +65,29 @@ class Inspector extends Component {
         <Section title="State">
           <JSONTree data={prototype} theme={'flat'}/>
         </Section>
+
+        <Section
+          title="Components"
+          addAction={this.toggleNewComponentModal}>
+          {components.map((component, i) => {
+            return (
+              <Flex
+                className="Item"
+                justify="space-between"
+                key={i}>
+                <Box>{component.name}</Box>
+                <Box>
+                  <a className="ItemAction"
+                    onClick={this.handleEditComponent.bind(null, component.name)}
+                    data-tip="Edit">
+                    ✏️
+                  </a>
+                </Box>
+              </Flex>
+            );
+          })}
+        </Section>
+        
         <Section title="Actions" addAction={this.toggleNewActionModal}>
           {actions.map((action, i) => {
             return (
@@ -84,27 +107,6 @@ class Inspector extends Component {
                     onClick={handlePlayAction.bind(null, action.name)}
                     data-tip="Run">
                     🏃
-                  </a>
-                </Box>
-              </Flex>
-            );
-          })}
-        </Section>
-        <Section
-          title="Components"
-          addAction={this.toggleNewComponentModal}>
-          {components.map((component, i) => {
-            return (
-              <Flex
-                className="Item"
-                justify="space-between"
-                key={i}>
-                <Box>{component.name}</Box>
-                <Box>
-                  <a className="ItemAction"
-                    onClick={this.handleEditComponent.bind(null, component.name)}
-                    data-tip="Edit">
-                    ✏️
                   </a>
                 </Box>
               </Flex>
