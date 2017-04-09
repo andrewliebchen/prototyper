@@ -43,8 +43,8 @@ a {
   font-weight: bold;
 }
 
-.Button,
-input[type="submit"] {
+.Button {
+  appearance: none;
   height: 2em;
   min-width: 2em;
   line-height: 2em;

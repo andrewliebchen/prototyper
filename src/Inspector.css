@@ -21,6 +21,6 @@
   margin-top: 0.5em;
 }
 
-.ItemAction {
-  cursor: pointer;
+.ItemAction + .ItemAction {
+  margin-left: 0.5em;
 }

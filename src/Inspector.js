@@ -73,10 +73,18 @@ class Inspector extends Component {
                 justify="space-between"
                 key={i}>
                 <Box>{action.name}</Box>
-                <Box
-                  className="ItemAction"
-                  onClick={handlePlayAction.bind(null, action.name)}>
-                  🏃
+                <Box>
+                  <a
+                    className="ItemAction"
+                    data-tip="Edit">
+                    ✏️
+                  </a>
+                  <a
+                    className="ItemAction"
+                    onClick={handlePlayAction.bind(null, action.name)}
+                    data-tip="Run">
+                    🏃
+                  </a>
                 </Box>
               </Flex>
             );
@@ -92,10 +100,12 @@ class Inspector extends Component {
                 justify="space-between"
                 key={i}>
                 <Box>{component.name}</Box>
-                <Box
-                  className="ItemAction"
-                  onClick={this.handleEditComponent.bind(null, component.name)}>
-                  ✏️
+                <Box>
+                  <a className="ItemAction"
+                    onClick={this.handleEditComponent.bind(null, component.name)}
+                    data-tip="Edit">
+                    ✏️
+                  </a>
                 </Box>
               </Flex>
             );

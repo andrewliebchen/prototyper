@@ -17,7 +17,9 @@ class DemoComponent extends Component {
     const { component, prototype } = this.props;
     const componentParent = ReactDOM.findDOMNode(this.refs.parent).firstChild;
     if (component.style) {
-      _.map(component.style(prototype), (value, key) => {
+      const componentStyles = eval(`(prototype) => { return({${component.style}}); }`);
+
+      _.map(componentStyles(prototype), (value, key) => {
         componentParent.style[key] = value;
       });
     }

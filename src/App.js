@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import update from 'immutability-helper';
+import ReactTooltip from 'react-tooltip';
 
 import Header from './Header';
 import Workspace from './Workspace';
@@ -24,23 +25,19 @@ class App extends Component {
           name: 'Button',
           event: 'onClick',
           action: 'Show modal',
-          style: (prototype) => { return {}; },
+          style: "display: prototype.button ? 'block' : 'none'",
           render: '<button>Click me</button>'
         }, {
           slug: 'modal',
           name: 'Modal',
           event: 'onClick',
           action: 'Hide modal',
-          style: (prototype) => {
-            return ({
-              padding: '1em',
-              border: '1px solid',
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              display: prototype.modal ? 'inline-block' : 'none'
-            });
-          },
+          style: `padding: '1em',
+border: '1px solid',
+position: 'absolute',
+top: '50%',
+left: '50%',
+display: prototype.modal ? 'inline-block' : 'none'`,
           render: '<div>Modal</div>'
         }
       ],
@@ -89,11 +86,19 @@ class App extends Component {
       target: values.target,
       value: values.value,
       exec: (self) => {
-        let temp = update(self.state.prototype, {[values.target]: {$set: valueBool}});
+        let temp = update(self.state.prototype, {
+          [values.target]: {$set: valueBool}
+        });
         self.setState({prototype: temp});
       }
     }]});
-    this.setState({actions: temp});
+    let tempPrototype = update(this.state.prototype, {
+      [values.target]: {$set: !valueBool}
+    });
+    this.setState({
+      actions: temp,
+      prototype: tempPrototype
+    });
   }
 
   handleNewComponent(values, render, style) {
@@ -102,7 +107,7 @@ class App extends Component {
       slug: _.camelCase(values.name),
       event: values.event,
       action: values.action,
-      style: eval(style),
+      style: style,
       render: render
     }]});
     this.setState({components: temp});
@@ -114,7 +119,7 @@ class App extends Component {
       slug: _.camelCase(values.name),
       event: values.event,
       action: values.action,
-      style: eval(style),
+      style: style,
       render: render
     }]});
     this.setState({components: temp});
@@ -135,6 +140,7 @@ class App extends Component {
           handleNewActionSubmit={this.handleNewAction.bind(this)}
           handleComponentUpdate={this.handleComponentUpdate.bind(this)}
           {...this.state}/>
+        <ReactTooltip />
       </div>
     );
   }

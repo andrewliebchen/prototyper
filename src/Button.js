@@ -3,7 +3,9 @@ import React, { Component, PropTypes } from 'react';
 class Button extends Component {
   render() {
     return (
-      <a className="Button" onClick={this.props.onClick}>
+      <a className="Button"
+        onClick={this.props.onClick}
+        data-tip={this.props.tooltip}>
         {this.props.label}
       </a>
     )
@@ -12,7 +14,8 @@ class Button extends Component {
 
 Button.propTypes = {
   label: PropTypes.string,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  tooltip: PropTypes.string
 };
 
 export default Button;

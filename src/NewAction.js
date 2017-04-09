@@ -3,15 +3,6 @@ import _ from 'lodash';
 import { Form, Text, Select } from 'react-form'
 
 class NewAction extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: null,
-      target: null,
-      value: null
-    }
-  }
-
   render() {
     const componentList = []
     _.map(this.props.components, (component) => {
@@ -36,7 +27,15 @@ class NewAction extends Component {
                   field="target"
                   options={componentList} />
                 <label>Value</label>
-                <Text field="value" />
+                <Select
+                  field="value"
+                  options={[{
+                    label: 'true',
+                    value: true
+                  }, {
+                    label: 'false',
+                    value: false
+                  }]}/>
                 <button type='submit'>Create</button>
               </form>
             );
