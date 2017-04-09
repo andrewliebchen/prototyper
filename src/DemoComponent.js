@@ -18,6 +18,7 @@ class DemoComponent extends Component {
     const componentParent = ReactDOM.findDOMNode(this.refs.parent);
 
     if (component.style) {
+      // eslint-disable-next-line
       const componentStyles = eval(`(prototype) => { return({${component.style}}); }`);
 
       _.map(componentStyles(prototype), (value, key) => {
