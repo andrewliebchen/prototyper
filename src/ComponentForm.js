@@ -7,9 +7,11 @@ import ComponentEditor from './ComponentEditor';
 class ComponentForm extends Component {
   constructor(props) {
     super(props);
+
+    const { component } = this.props;
     this.state = {
-      render: this.props.component.render,
-      style: this.props.component.style
+      render: component && component.render,
+      style: component && component.style
     }
   }
 

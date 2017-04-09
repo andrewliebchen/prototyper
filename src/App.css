@@ -1,2 +1,26 @@
-.App {
+.Inspector {
+  width: var(--width-inspector);
+  position: fixed;
+  right: 0;
+  top: var(--height-header);
+  bottom: 0;
+  background-color: var(--color-background);
+  border-left: 2px solid var(--color-border);
+  overflow: auto;
+}
+
+.Item {
+  height: 2em;
+  line-height: 2em;
+  background-color: var(--color-item-background);
+  padding: 0 0.5em;
+  display: flex;
+}
+
+.Item + .Item {
+  margin-top: 0.5em;
+}
+
+.ItemAction + .ItemAction {
+  margin-left: 0.5em;
 }

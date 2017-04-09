@@ -9,7 +9,7 @@ class Workspace extends Component {
     const {
       components,
       prototype,
-      handleEvent
+      playAction
      } = this.props;
 
     return (
@@ -21,7 +21,7 @@ class Workspace extends Component {
                 key={i}
                 component={component}
                 prototype={prototype}
-                handleEvent={handleEvent}/>
+                handleEvent={playAction}/>
             );
           })}
         </section>
@@ -34,7 +34,7 @@ Workspace.propTypes = {
   actions: PropTypes.array,
   components: PropTypes.array,
   prototype: PropTypes.object,
-  handleEvent: PropTypes.func
+  fireAction: PropTypes.func
 };
 
 export default Workspace;

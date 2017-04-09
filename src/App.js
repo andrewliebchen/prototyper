@@ -5,76 +5,27 @@ import ReactTooltip from 'react-tooltip';
 
 import Header from './Header';
 import Workspace from './Workspace';
-import Inspector from './Inspector';
+import StateInspector from './StateInspector';
+import ComponentInspector from './ComponentInspector';
+import ActionInspector from './ActionInspector';
+
+import { prototype, components, actions, flows } from './config';
 
 import './App.css';
-
 
 class App extends Component {
   constructor(props) {
     super(props);
 
-    // Stub in most of this stuff, needs to go...
-    this.state ={
-      prototype: {
-        modal: false
-      },
-      components: [
-        {
-          slug: 'button',
-          name: 'Button',
-          event: 'onClick',
-          action: 'Show modal',
-          style: "display: prototype.button ? 'block' : 'none'",
-          render: '<button>Click me</button>'
-        }, {
-          slug: 'modal',
-          name: 'Modal',
-          event: 'onClick',
-          action: 'Hide modal',
-          style: `padding: '1em',
-border: '1px solid',
-position: 'absolute',
-top: '50%',
-left: '50%',
-display: prototype.modal ? 'inline-block' : 'none'`,
-          render: '<div>Modal</div>'
-        }
-      ],
-      actions: [
-        {
-          name: 'Show modal',
-          target: 'modal',
-          value: true,
-          exec: (self) => {
-            let temp = update(self.state.prototype, {modal: {$set: true}});
-            self.setState({prototype: temp});
-          }
-        }, {
-          name: 'Hide modal',
-          target: 'modal',
-          value: false,
-          exec: (self) => {
-            let temp = update(self.state.prototype, {modal: {$set: false}});
-            self.setState({prototype: temp});
-          }
-        }
-      ],
-      flows: [
-        {
-          event: 'click',
-          component: 'button',
-          action: 'Show modal'
-        }, {
-          event: 'click',
-          component: 'modal',
-          action: 'Hide modal'
-        }
-      ]
+    this.state = {
+      prototype: prototype,
+      components: components,
+      actions: actions,
+      flows: flows
     };
   }
 
-  handleEvent = (actionName, event) => {
+  playAction = (actionName, event) => {
     const action = _.find(this.state.actions, { name: actionName });
     action.exec(this);
   }
@@ -95,6 +46,7 @@ display: prototype.modal ? 'inline-block' : 'none'`,
     let tempPrototype = update(this.state.prototype, {
       [values.target]: {$set: !valueBool}
     });
+
     this.setState({
       actions: temp,
       prototype: tempPrototype
@@ -110,6 +62,7 @@ display: prototype.modal ? 'inline-block' : 'none'`,
       style: style,
       render: render
     }]});
+
     this.setState({components: temp});
   }
 
@@ -122,6 +75,7 @@ display: prototype.modal ? 'inline-block' : 'none'`,
       style: style,
       render: render
     }]});
+    
     this.setState({components: temp});
   }
 
@@ -129,17 +83,25 @@ display: prototype.modal ? 'inline-block' : 'none'`,
     return (
       <div className="App">
         <Header
-          handleRunFlow={this.handleEvent}
+          handleRunFlow={this.playAction}
           {...this.state}/>
+
         <Workspace
-          handleEvent={this.handleEvent}
+          playAction={this.playAction}
           {...this.state}/>
-        <Inspector
-          handlePlayAction={this.handleEvent}
-          handleNewComponentSubmit={this.handleNewComponent.bind(this)}
-          handleNewActionSubmit={this.handleNewAction.bind(this)}
-          handleComponentUpdate={this.handleComponentUpdate.bind(this)}
-          {...this.state}/>
+
+        <div className="Inspector">
+          <StateInspector prototype={this.state.prototype}/>
+          <ComponentInspector
+            submitNewComponent={this.handleNewComponent.bind(this)}
+            updateComponent={this.handleComponentUpdate.bind(this)}
+            {...this.state}/>
+          <ActionInspector
+            playAction={this.playAction}
+            submitNewAction={this.handleNewAction.bind(this)}
+            {...this.state}/>
+        </div>
+
         <ReactTooltip />
       </div>
     );
