@@ -8,8 +8,8 @@ class ComponentForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      render: this.props.render,
-      style: this.props.style
+      render: this.props.component.render,
+      style: this.props.component.style
     }
   }
 
@@ -22,8 +22,10 @@ class ComponentForm extends Component {
   }
 
   render() {
+    const { actions, component } = this.props;
+
     const actionsList = []
-    _.map(this.props.actions, (action) => {
+    _.map(actions, (action) => {
       actionsList.push({
           label: action.name,
           value: action.name
@@ -39,6 +41,7 @@ class ComponentForm extends Component {
             this.state.style
           )}}
           defaultValues={{
+            name: component ? component.name : null,
             event: 'onClick',
             action: 'Show modal'
           }}>
@@ -63,7 +66,7 @@ class ComponentForm extends Component {
                   updateStyle={this.updateStyle.bind(this)}
                   render={this.state.render}
                   style={this.state.style}/>
-                <button type="submit">Create</button>
+                <button type="submit">{component ? 'Update' : 'Create'}</button>
               </form>
             );
           }}
@@ -74,6 +77,7 @@ class ComponentForm extends Component {
 }
 
 ComponentForm.propTypes = {
+  component: PropTypes.object,
   actions: PropTypes.array,
   submitForm: PropTypes.func
 };

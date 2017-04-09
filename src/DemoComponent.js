@@ -1,49 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
-import Modal from 'react-modal';
-
-const modalStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    transform: 'translate3d(-50%, -50%, 0)',
-    width: '400px'
-  }
-}
 
 class DemoComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      modal: false
-    };
-    this.toggleModal = this.toggleModal.bind(this);
-  }
-
-  toggleModal() {
-    this.state({modal: !this.state.modal});
-  }
-
   render() {
     const { component, handleEvent } = this.props;
     return (
-      <span>
-        <span
-          ref="parent"
-          onClick={component.event === 'onClick' && handleEvent.bind(this, component.action)}
-          dangerouslySetInnerHTML={{__html: component.render}}/>
-
-        <Modal
-          isOpen={this.state.modal}
-          onRequestClose={this.toggleModal}
-          style={modalStyles}
-          contentLabel="Component">
-          "hi"
-        </Modal>
-      </span>
+      <span
+        ref="parent"
+        onClick={component.event === 'onClick' && handleEvent.bind(this, component.action)}
+        dangerouslySetInnerHTML={{__html: component.render}}/>
     );
   }
 

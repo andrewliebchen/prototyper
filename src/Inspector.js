@@ -26,10 +26,13 @@ class Inspector extends Component {
     super(props);
     this.state = {
       newComponentModal: false,
-      newActionModal: false
+      newActionModal: false,
+      editComponentModal: false,
+      selectedComponent: null
     };
     this.toggleNewComponentModal = this.toggleNewComponentModal.bind(this);
     this.toggleNewActionModal = this.toggleNewActionModal.bind(this);
+    this.handleEditComponent = this.handleEditComponent.bind(this);
   }
 
   toggleNewComponentModal() {
@@ -40,6 +43,13 @@ class Inspector extends Component {
     this.setState({newActionModal: !this.state.newActionModal});
   }
 
+  handleEditComponent(name) {
+    this.setState({
+      editComponentModal: !this.state.editComponentModal,
+      selectedComponent: name
+    });
+  }
+
   render() {
     const {
       actions,
@@ -47,7 +57,8 @@ class Inspector extends Component {
       prototype,
       handlePlayAction,
       handleNewComponentSubmit,
-      handleNewActionSubmit
+      handleNewActionSubmit,
+      handleComponentUpdate
     } = this.props;
     return (
       <div className="Inspector">
@@ -75,7 +86,19 @@ class Inspector extends Component {
           title="Components"
           addAction={this.toggleNewComponentModal}>
           {components.map((component, i) => {
-            return <div className="Item" key={i}>{component.name}</div>;
+            return (
+              <Flex
+                className="Item"
+                justify="space-between"
+                key={i}>
+                <Box>{component.name}</Box>
+                <Box
+                  className="ItemAction"
+                  onClick={this.handleEditComponent.bind(null, component.name)}>
+                  ✏️
+                </Box>
+              </Flex>
+            );
           })}
         </Section>
 
@@ -99,6 +122,18 @@ class Inspector extends Component {
             handleSubmit={handleNewActionSubmit}
             {...this.props}/>
         </Modal>
+
+        <Modal
+          isOpen={this.state.editComponentModal}
+          onRequestClose={this.handleEditComponent}
+          style={modalStyles}
+          contentLabel="Edit Component">
+          <h3>Update component</h3>
+          <ComponentForm
+            component={_.find(components, {name: this.state.selectedComponent})}
+            handleSubmit={handleComponentUpdate}
+            {...this.props}/>
+        </Modal>
       </div>
     );
   }
@@ -110,7 +145,8 @@ Inspector.propTypes = {
   prototype: PropTypes.object,
   handlePlayAction: PropTypes.func,
   handleNewComponentSubmit: PropTypes.func,
-  handleNewActionSubmit: PropTypes.func
+  handleNewActionSubmit: PropTypes.func,
+  handleComponentUpdate: PropTypes.func
 };
 
 export default Inspector;

@@ -108,6 +108,18 @@ class App extends Component {
     this.setState({components: temp});
   }
 
+  handleComponentUpdate(values, render, style) {
+    let temp = update(this.state.components, {$merge: [{
+      name: values.name,
+      slug: _.camelCase(values.name),
+      event: values.event,
+      action: values.action,
+      style: eval(style),
+      render: render
+    }]});
+    this.setState({components: temp});
+  }
+
   render() {
     return (
       <div className="App">
@@ -121,6 +133,7 @@ class App extends Component {
           handlePlayAction={this.handleEvent}
           handleNewComponentSubmit={this.handleNewComponent.bind(this)}
           handleNewActionSubmit={this.handleNewAction.bind(this)}
+          handleComponentUpdate={this.handleComponentUpdate.bind(this)}
           {...this.state}/>
       </div>
     );
