@@ -1,14 +1,21 @@
 import React, { Component, PropTypes } from 'react';
 import CodeMirror from 'react-codemirror';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import { JsonEditor } from 'react-json-edit';
 
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/theme/material.css';
 
+const defaultStyleValue = `(prototype) => {
+  return ({
+
+  });
+}`;
+
 class ComponentEdit extends Component {
   render() {
+    const { updateRender, updateStyle, render, style } = this.props;
+
     const CMOptions = {
       mode: 'javascript',
       lineNumbers: true,
@@ -23,13 +30,15 @@ class ComponentEdit extends Component {
         </TabList>
         <TabPanel>
           <CodeMirror
-            onChange={this.props.updateRender.bind(this)}
+            value={render && render}
+            onChange={updateRender.bind(this)}
             options={CMOptions} />
         </TabPanel>
         <TabPanel>
-          <JsonEditor
-            value={this.props.style}
-            propagateChanges={this.props.updateStyle.bind(this)}/>
+          <CodeMirror
+            value={style ? style : defaultStyleValue}
+            onChange={updateStyle.bind(this)}
+            options={CMOptions} />
         </TabPanel>
       </Tabs>
     );
