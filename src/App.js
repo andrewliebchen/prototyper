@@ -75,8 +75,12 @@ class App extends Component {
       style: style,
       render: render
     }]});
-    
+
     this.setState({components: temp});
+  }
+
+  handleStateUpdate(newState) {
+    this.setState({prototype: newState});
   }
 
   render() {
@@ -91,7 +95,9 @@ class App extends Component {
           {...this.state}/>
 
         <div className="Inspector">
-          <StateInspector prototype={this.state.prototype}/>
+          <StateInspector
+            prototype={this.state.prototype}
+            updateState={this.handleStateUpdate.bind(this)}/>
           <ComponentInspector
             submitNewComponent={this.handleNewComponent.bind(this)}
             updateComponent={this.handleComponentUpdate.bind(this)}

@@ -21,7 +21,7 @@ export const components = [
     name: 'Button',
     event: 'onClick',
     action: 'Show modal',
-    style: "display: prototype.button ? 'block' : 'none'",
+    style: '',
     render: '<button>Click me</button>'
   }, {
     slug: 'modal',

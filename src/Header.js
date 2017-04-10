@@ -54,14 +54,16 @@ class Header extends Component {
           })}
         </ol> */}
         <Box>
+          <Button label="👈" tooltip="Previous"/>
+          <Button label="👉" tooltip="Next"/>
+        </Box>
+        <Box>
           <h1 className="Flow">
-            1. When I click the button, show modal
+            When I click the button, show modal
           </h1>
         </Box>
         <Box>
           <Button label="New flow"/>
-          <Button label="👈" tooltip="Previous"/>
-          <Button label="👉" tooltip="Next"/>
         </Box>
       </Flex>
     );
